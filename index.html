@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Language Translation Tool</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1><i class="fa-solid fa-brain"></i> AI Translator</h1>
+      <p>Outil de traduction propulsé par des modèles linguistiques</p>
+    </header>
+
+    <div class="wrapper">
+      <div class="text-input">
+        <textarea class="from-text" placeholder="Entrez le texte à traduire..."></textarea>
+        <textarea class="to-text" readonly placeholder="Traduction..."></textarea>
+      </div>
+
+      <ul class="controls">
+        <li class="row from">
+          <select id="select-from"></select>
+          <div class="icons">
+            <button id="speak-from" title="Écouter le texte source"><i class="fa-solid fa-volume-high"></i></button>
+          </div>
+        </li>
+        
+        <li class="exchange"><i class="fa-solid fa-arrows-rotate"></i></li>
+        
+        <li class="row to">
+          <select id="select-to"></select>
+          <div class="icons">
+            <button id="copy-to" title="Copier la traduction"><i class="fa-solid fa-copy"></i></button>
+            <button id="speak-to" title="Écouter la traduction"><i class="fa-solid fa-volume-high"></i></button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    
+    <button id="translate-btn">Traduire le texte</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

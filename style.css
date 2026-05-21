@@ -1,0 +1,199 @@
+/* Configuration Générale & Variables */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1e38 100%);
+  color: #f1f5f9;
+  padding: 20px;
+}
+
+.container {
+  max-width: 690px;
+  width: 100%;
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #38bdf8; /* Couleur typique IA / Tech */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+header p {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* Zone de Texte */
+.wrapper {
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #0f172a;
+}
+
+.text-input {
+  display: flex;
+  border-bottom: 1px solid #334155;
+}
+
+.text-input textarea {
+  height: 250px;
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  font-size: 1.1rem;
+  padding: 15px 20px;
+  color: #f1f5f9;
+}
+
+.text-input .from-text {
+  border-right: 1px solid #334155;
+}
+
+.text-input textarea::placeholder {
+  color: #64748b;
+}
+
+/* Barre de Contrôles & Boutons */
+.controls {
+  list-style: none;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.controls .row {
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+
+.controls .row select {
+  width: 100%;
+  background: #1e293b;
+  color: #f1f5f9;
+  border: 1px solid #475569;
+  outline: none;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.controls .row select option {
+  background: #1e293b;
+}
+
+.controls .row .icons {
+  display: flex;
+  padding-left: 15px;
+  gap: 10px;
+}
+
+.controls .row .icons button {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #94a3b8;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.controls .row .icons button:hover {
+  color: #38bdf8;
+}
+
+/* Bouton d'échange de langue */
+.controls .exchange {
+  color: #94a3b8;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.2s;
+  padding: 5px;
+}
+
+.controls .exchange:hover {
+  color: #38bdf8;
+  transform: rotate(180deg);
+}
+
+/* Bouton Principal de Traduction */
+#translate-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  border: none;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+#translate-btn:hover {
+  opacity: 0.95;
+}
+
+#translate-btn:active {
+  transform: scale(0.98);
+}
+
+/* Responsive Design pour Mobile */
+@media (max-width: 660px) {
+  .text-input {
+    flex-direction: column;
+  }
+  .text-input .from-text {
+    border-right: none;
+    border-bottom: 1px solid #334155;
+    height: 180px;
+  }
+  .text-input .to-text {
+    height: 180px;
+  }
+  .controls {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .controls .row {
+    width: 100%;
+  }
+  .controls .exchange {
+    transform: rotate(90deg);
+  }
+  .controls .exchange:hover {
+    transform: rotate(270deg);
+  }
+}
