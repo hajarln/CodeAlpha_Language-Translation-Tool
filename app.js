@@ -1,12 +1,10 @@
-// ==========================================
-// 1. DICTIONNAIRE DES LANGUES (Codes ISO)
-// ==========================================
 const countries = {
     "ar-SA": "Arabe",
     "en-GB": "Anglais",
     "es-ES": "Espagnol",
     "fr-FR": "Français",
     "de-DE": "Allemand",
+    "hi-IN": "Hindi (Inde)",
     "it-IT": "Italien",
     "ja-JP": "Japonais",
     "zh-CN": "Chinois (Simplifié)",
@@ -15,9 +13,6 @@ const countries = {
     "tr-TR": "Turc"
 };
 
-// ==========================================
-// 2. SÉLECTION DES ÉLÉMENTS DE L'INTERFACE
-// ==========================================
 const fromText = document.querySelector(".from-text");
 const toText = document.querySelector(".to-text");
 const selectTag = document.querySelectorAll("select");
@@ -25,24 +20,16 @@ const exchangeIcon = document.querySelector(".exchange");
 const translateBtn = document.querySelector("#translate-btn");
 const icons = document.querySelectorAll(".icons button");
 
-// ==========================================
-// 3. INJECTION DYNAMIQUE DES LANGUES
-// ==========================================
 selectTag.forEach((tag, id) => {
     for (let country_code in countries) {
-        // Sélection par défaut : Anglais pour la source, Français pour la cible
         let selected = id == 0 ? (country_code == "en-GB" ? "selected" : "") : (country_code == "fr-FR" ? "selected" : "");
         let option = `<option value="${country_code}" ${selected}>${countries[country_code]}</option>`;
         tag.insertAdjacentHTML("beforeend", option);
     }
 });
 
-// ==========================================
-// 4. LOGIQUE DE TRADUCTION (Appel API)
-// ==========================================
 async function translateData() {
     let text = fromText.value.trim();
-    // On extrait uniquement le code langue court (ex: "en" au lieu de "en-GB") requis par l'API
     let translateFrom = selectTag[0].value.split("-")[0];
     let translateTo = selectTag[1].value.split("-")[0];
     
@@ -51,10 +38,9 @@ async function translateData() {
         return;
     }
 
-    toText.placeholder = "Analyse et traduction IA en cours...";
+    toText.placeholder = "AI analysis and translation in progress...";
 
     try {
-        // Utilisation d'une API de traduction REST performante et gratuite pour le développement
         let apiUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${translateFrom}|${translateTo}`;
         
         let response = await fetch(apiUrl);
@@ -71,60 +57,71 @@ async function translateData() {
     }
 }
 
-// Événement sur le bouton "Traduire"
 translateBtn.addEventListener("click", translateData);
 
-// ==========================================
-// 5. FONCTIONNALITÉ D'ÉCHANGE (Inverser)
-// ==========================================
 exchangeIcon.addEventListener("click", () => {
-    // Échanger les textes
     let tempText = fromText.value;
     fromText.value = toText.value;
     toText.value = tempText;
 
-    // Échanger les sélections de langues
     let tempLang = selectTag[0].value;
     selectTag[0].value = selectTag[1].value;
     selectTag[1].value = tempLang;
+
+    let icon = exchangeIcon.querySelector("i");
+    if (!icon.style.transform || icon.style.transform === "rotate(0deg)") {
+        icon.style.transform = "rotate(180deg)";
+    } else {
+        icon.style.transform = "rotate(0deg)";
+    }
+    icon.style.transition = "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
 });
 
-// ==========================================
-// 6. OPTIONS BONUS : COPIE & SYNTHÈSE VOCALE
-// ==========================================
 icons.forEach(icon => {
     icon.addEventListener("click", ({ target }) => {
-        // Gestion de la Copie (si l'icône cliquée ou son parent est le bouton de copie)
-        if (target.id === "copy-to" || target.parentElement.id === "copy-to") {
+        let buttonElement = target.tagName === "I" ? target.parentElement : target;
+
+        if (buttonElement.id === "copy-to") {
             if (toText.value) {
                 navigator.clipboard.writeText(toText.value);
-                
-                // Petit effet visuel temporaire pour confirmer la copie
-                let copyBtn = document.getElementById("copy-to");
-                copyBtn.style.color = "#22c55e"; // Vert succès
-                setTimeout(() => copyBtn.style.color = "#94a3b8", 1500);
+                buttonElement.style.color = "#e91e63"; 
+                buttonElement.style.backgroundColor = "#fdf2f8";
+                buttonElement.style.borderColor = "#fbcfe8";
+                setTimeout(() => {
+                    buttonElement.style.color = "";
+                    buttonElement.style.backgroundColor = "";
+                    buttonElement.style.borderColor = "";
+                }, 1500);
             }
         } 
-        // Gestion du Text-to-Speech (Synthèse Vocale)
         else {
             let utterance;
-            // Si on clique sur le haut-parleur de gauche (source)
-            if (target.id === "speak-from" || target.parentElement.id === "speak-from") {
-                if (fromText.value) {
-                    utterance = new SpeechSynthesisUtterance(fromText.value);
-                    utterance.lang = selectTag[0].value;
-                }
-            } 
-            // Si on clique sur le haut-parleur de droite (cible)
-            else {
-                if (toText.value) {
-                    utterance = new SpeechSynthesisUtterance(toText.value);
-                    utterance.lang = selectTag[1].value;
-                }
+            let textToSpeak = "";
+            let langCode = "";
+
+            if (buttonElement.id === "speak-from" && fromText.value) {
+                textToSpeak = fromText.value;
+                langCode = selectTag[0].value; 
+            } else if (buttonElement.id === "speak-to" && toText.value) {
+                textToSpeak = toText.value;
+                langCode = selectTag[1].value;
             }
             
-            if (utterance) {
-                window.speechSynthesis.cancel(); // Stoppe une lecture en cours si elle existe
+            if (textToSpeak) {
+                utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = langCode;
+
+                let voices = window.speechSynthesis.getVoices();
+                if (voices.length > 0) {
+                    let matchingVoice = voices.find(voice => 
+                        voice.lang.startsWith(langCode.split("-")[0]) || voice.lang === langCode
+                    );
+                    if (matchingVoice) {
+                        utterance.voice = matchingVoice;
+                    }
+                }
+
+                window.speechSynthesis.cancel(); 
                 window.speechSynthesis.speak(utterance);
             }
         }

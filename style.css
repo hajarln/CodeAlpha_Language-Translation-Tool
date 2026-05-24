@@ -1,9 +1,8 @@
-/* Configuration Générale & Variables */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 body {
@@ -11,20 +10,20 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e1e38 100%);
-  color: #f1f5f9;
+  background: linear-gradient(135deg, #f5fbf7 0%, #fef2f4 100%);
+  color: #2c3e50;
   padding: 20px;
 }
 
 .container {
   max-width: 690px;
   width: 100%;
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
   padding: 30px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 50px rgba(165, 214, 167, 0.15), 0 10px 20px rgba(244, 143, 177, 0.05);
 }
 
 header {
@@ -33,167 +32,193 @@ header {
 }
 
 header h1 {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #38bdf8; /* Couleur typique IA / Tech */
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(45deg, #2e7d32, #d81b60);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 header p {
-  color: #94a3b8;
-  font-size: 0.9rem;
-  margin-top: 5px;
+  color: #64748b;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 6px;
 }
 
-/* Zone de Texte */
 .wrapper {
-  border-radius: 8px;
-  border: 1px solid #334155;
-  background: #0f172a;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .text-input {
   display: flex;
-  border-bottom: 1px solid #334155;
 }
 
 .text-input textarea {
-  height: 250px;
+  height: 220px;
   width: 100%;
   border: none;
   outline: none;
   resize: none;
   background: transparent;
   font-size: 1.1rem;
-  padding: 15px 20px;
-  color: #f1f5f9;
+  padding: 20px;
+  color: #334155;
+  line-height: 1.6;
 }
 
 .text-input .from-text {
-  border-right: 1px solid #334155;
+  border-right: 1px solid #edf2f7;
+  background-color: #fafdfb; 
+}
+
+.text-input .to-text {
+  background-color: #fffcfd; 
 }
 
 .text-input textarea::placeholder {
-  color: #64748b;
+  color: #94a3b8;
 }
 
-/* Barre de Contrôles & Boutons */
 .controls {
   list-style: none;
   padding: 15px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: #ffffff;
 }
 
 .controls .row {
-  width: 40%;
+  width: 42%;
   display: flex;
   align-items: center;
 }
 
 .controls .row select {
   width: 100%;
-  background: #1e293b;
-  color: #f1f5f9;
-  border: 1px solid #475569;
+  background: #f8fafc;
+  color: #334155;
+  border: 1px solid #e2e8f0;
   outline: none;
   font-size: 0.95rem;
-  border-radius: 6px;
-  padding: 8px 10px;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 10px 12px;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.controls .row select option {
-  background: #1e293b;
+.controls .row select:focus {
+  border-color: #81c784;
+  box-shadow: 0 0 0 3px rgba(129, 199, 132, 0.2);
 }
 
 .controls .row .icons {
   display: flex;
   padding-left: 15px;
-  gap: 10px;
+  gap: 12px;
 }
 
 .controls .row .icons button {
-  background: transparent;
-  border: none;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   outline: none;
-  color: #94a3b8;
-  font-size: 1.1rem;
+  color: #64748b;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 1rem;
   cursor: pointer;
-  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
 .controls .row .icons button:hover {
-  color: #38bdf8;
+  color: #d81b60;
+  background: #fdf2f8;
+  border-color: #fbcfe8;
+  transform: translateY(-2px);
 }
 
-/* Bouton d'échange de langue */
 .controls .exchange {
-  color: #94a3b8;
-  font-size: 1.2rem;
+  color: #2e7d32;
+  background: #e8f5e9;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: transform 0.3s ease, color 0.2s;
-  padding: 5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 10px rgba(46, 125, 50, 0.1);
 }
 
 .controls .exchange:hover {
-  color: #38bdf8;
-  transform: rotate(180deg);
+  background: #c8e6c9;
+  transform: scale(1.1);
 }
 
-/* Bouton Principal de Traduction */
 #translate-btn {
   width: 100%;
-  padding: 14px;
-  margin-top: 20px;
+  padding: 16px;
+  margin-top: 25px;
   border: none;
   outline: none;
   color: #fff;
   cursor: pointer;
   font-size: 1.1rem;
-  font-weight: 500;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
-  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
-  transition: opacity 0.2s ease, transform 0.1s ease;
+  font-weight: 600;
+  border-radius: 14px;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #4caf50 0%, #e91e63 100%);
+  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.25);
+  transition: all 0.3s ease;
 }
 
 #translate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(233, 30, 99, 0.35);
   opacity: 0.95;
 }
 
 #translate-btn:active {
-  transform: scale(0.98);
+  transform: translateY(0);
+  scale: 0.98;
 }
 
-/* Responsive Design pour Mobile */
 @media (max-width: 660px) {
   .text-input {
     flex-direction: column;
   }
   .text-input .from-text {
     border-right: none;
-    border-bottom: 1px solid #334155;
-    height: 180px;
+    border-bottom: 1px solid #edf2f7;
+    height: 160px;
   }
   .text-input .to-text {
-    height: 180px;
+    height: 160px;
   }
   .controls {
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
+    padding: 20px;
   }
   .controls .row {
     width: 100%;
   }
   .controls .exchange {
-    transform: rotate(90deg);
-  }
-  .controls .exchange:hover {
-    transform: rotate(270deg);
+    margin: 5px 0;
   }
 }
